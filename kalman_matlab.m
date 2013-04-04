@@ -5,9 +5,9 @@ n_iter = 50;
 
 stdev = 0.1;
 z = 0.125 + stdev*randn(n_iter, 1);
-%for i=1:n_iter
-%	z(i) = z(i) + 0.25 * i;
-%end
+for i=1:n_iter
+	z(i) = z(i) + 0.025 * i;
+end
 
 del_t = .01; % Time
 q_f = 0.05;   % Process error
@@ -38,8 +38,11 @@ for t=2:n_iter
 	P(:, :, t) = (eye(2) - K(:, :, t) * H) * P_interim;
 end
 
-temp = reshape(x_hat(1, 1, :), n_iter, 1);
-t_vals = 1:n_iter;
-plot(temp);
+x_positions = reshape(x_hat(1, 1, :), n_iter, 1);
+velocities = reshape(x_hat(2, 1, :), n_iter, 1);
+plot(x_positions);
 hold all
 plot(z);
+pause;
+plot(velocities)
+% converges to 0.025 / .01 = 2.5
