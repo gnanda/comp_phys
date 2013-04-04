@@ -6,7 +6,7 @@ sz = (n_iter,)
 random_values = np.random.normal(0.125,1.5,size=sz) # observations (normal about x_hat, sigma=0.1)
 z = [np.array([random_values[i] + 0.25*i,0]) for i in range(len(random_values))]
 
-del_t = 1.0 # Time
+del_t = 0.01 # Time
 q_f = 0.05   # Process error
 r = 0.1     # measurement error
 # Variances
@@ -26,8 +26,8 @@ K.append(np.array([[1., 0.], [0., 1.]]))
 
 # Creating matrices
 F = np.array([[1., del_t], [0., 1.]])
-H = np.array([[1, 0]])
-Q = np.array([[del_t**3 * q_f / 3., del_t**3 * q_f / 2.], [del_t**3 * q_f / 2., del_t * q_f]])
+H = np.array([[1, 0], [0, 0]])
+Q = np.array([[del_t**3 * q_f / 3., del_t**2 * q_f / 2.], [del_t**2 * q_f / 2., del_t * q_f]])
 R = np.array([[r, 0], [0, r]])
 
 for t in range(1, n_iter):
