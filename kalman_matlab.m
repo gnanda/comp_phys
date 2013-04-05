@@ -1,15 +1,15 @@
 clear all
 close all
 
-n_iter = 50;
+n_iter = 5000;
 
 stdev = 0.1;
-z = 0.125 + stdev*randn(n_iter, 1);
 for i=1:n_iter
-	z(i) = z(i) + 0.025 * i;
+	z(i) = 0.125 + 0.025 * i + 0.005* i^2;
+    z(i) = (1 + (stdev * abs(randn(1)))) * z(i);
 end
 
-del_t = .01; % Time
+del_t = .1; % Time
 q_f = 0.05;   % Process error
 r = 0.1;     % measurement error
 % Variances
@@ -44,5 +44,5 @@ plot(x_positions);
 hold all
 plot(z);
 pause;
-plot(velocities)
-% converges to 0.025 / .01 = 2.5
+plot(velocities) % converges to 0.025 / .01 = 2.5
+
